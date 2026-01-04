@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Descubre tu Sol (bombón) interior</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --abrazadora: #FF6B8B; --reflexiva: #4A90E2;
+            --creativa: #9C27B0; --serena: #00BCD4;
+            --dorado: #FFD700; --gris-claro: #F5F5F7;
+            --gris-oscuro: #333333;
+            --sombra: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transicion: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #f5f7fa 100%);
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contenedor-principal {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--sombra);
+            overflow: hidden;
+        }
+        .encabezado {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .titulo-principal {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .subtitulo { font-size: 1rem; color: rgba(255, 255, 255, 0.9); font-weight: 300; }
+        .pantalla { display: none; padding: 30px; animation: aparecer 0.6s ease-out; }
+        .pantalla.activa { display: block; }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .inicio { text-align: center; }
+        .inicio-icono { font-size: 4rem; margin: 20px 0; color: var(--dorado); animation: latido 2s infinite; }
+        @keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .btn-principal {
+            display: block; width: 100%; padding: 18px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white; border: none; border-radius: 15px;
+            font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            transition: var(--transicion); margin: 10px 0;
+            box-shadow: 0 6px 20px rgba(255, 165, 0, 0.3);
+        }
+        .btn-principal:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4); }
+        .barra-progreso { background: #f0f0f0; height: 8px; border-radius: 4px; margin: 30px 0; overflow: hidden; }
+        .progreso { height: 100%; background: linear-gradient(90deg, #FFD700, #FFA500); width: 0%; transition: width 0.5s ease; }
+        .pregunta-texto { font-size: 1.3rem; font-weight: 600; margin-bottom: 30px; text-align: center; }
+        .opciones { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .opcion-btn {
+            padding: 20px; background: white; border: 2px solid #eee;
+            border-radius: 15px; text-align: left; font-size: 1rem;
+            cursor: pointer; transition: var(--transicion);
+        }
+        .opcion-btn:hover { border-color: #FFD700; transform: translateX(5px); background: #FFF9E6; }
+        .opcion-btn.seleccionada { border-color: #FFA500; background: #FFF3E0; }
+        .resultado-contenido { text-align: center; }
+        .resultado-emoji { font-size: 3.5rem; margin: 10px 0; animation: latido 2s infinite; }
+        .resultado-titulo {
+            font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin: 15px 0;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .resultado-imagen {
+            width: 100%; max-width: 300px; height: 250px;
+            object-fit: cover; border-radius: 20px; margin: 20px auto;
+            display: block; border: 5px solid #f9f9f9;
+        }
+        .elementos-resultado { display: grid; grid-template-columns: 1fr; gap: 20px; margin: 30px 0; }
+        @media (min-width: 768px) { .elementos-resultado { grid-template-columns: repeat(3, 1fr); } }
+        .elemento { background: #f9f9f9; padding: 20px; border-radius: 15px; text-align: center; }
+        .botones-cancion { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
+        .btn-spotify { background: #1DB954; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-youtube { background: #FF0000; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+        .footer { text-align: center; padding: 25px 20px; background: #f9f9f9; color: #888; font-size: 0.9rem; border-top: 1px solid #eee; }
+        .footer-corazon { color: var(--abrazadora); animation: latido 1.5s infinite; }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <div class="encabezado">
+            <h1 class="titulo-principal">Descubre tu Sol</h1>
+            <p class="subtitulo">¿Qué Sol (bombón) eres?</p>
+        </div>
+        
+        <div class="contenido">
+            <div id="inicio" class="pantalla activa">
+                <div class="inicio">
+                    <div class="inicio-icono">☀️</div>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 15px; color: #333;">¡Bienvenida al Test de Sol!</h2>
+                    <p style="font-size: 1.1rem; color: #666; margin: 25px 0 35px;">
+                        Responde 13 preguntas sinceras y descubre cuál de las facetas 
+                        maravillosas de Sol resuena más contigo.
+                    </p>
+                    <button class="btn-principal" onclick="comenzarTest()">
+                        <i class="fas fa-play-circle"></i> Comenzar Test
+                    </button>
+                </div>
+            </div>
+            
+            <div id="pantalla-preguntas" class="pantalla">
+                <div style="text-align: center; font-size: 0.9rem; color: #888; margin: 20px 0 5px;">
+                    Pregunta <span id="numero-pregunta">1</span> de 13
+                </div>
+                <div class="barra-progreso">
+                    <div class="progreso" id="barra-progreso"></div>
+                </div>
+                
+                <h2 class="pregunta-texto" id="texto-pregunta">Cargando pregunta...</h2>
+                
+                <div class="opciones" id="opciones-container"></div>
+                
+                <button class="btn-principal" id="btn-siguiente" onclick="siguientePregunta()" style="display: none;">
+                    <i class="fas fa-arrow-right"></i> Siguiente
+                </button>
+            </div>
+            
+            <div id="pantalla-resultado" class="pantalla">
+                <div id="resultado-contenido"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Creado con <span class="footer-corazon">♥</span> para Sol y sus amigos</p>
+            <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;">Un regalo especial que celebra todas sus facetas</p>
+        </div>
+    </div>
+
+    <script>
+        // PREGUNTAS
+        const preguntas = [
+            { texto: "Cuando un amigo llega con un problema, tu primer impulso es...",
+              opciones: ["Abrazarlo y hacerle sentir acompañado", "Escuchar todo antes de dar tu opinión", 
+                        "Encontrar una forma creativa de animarlo", "Crear un ambiente tranquilo para hablar"] },
+            { texto: "En una discusión grupal, tú sueles...",
+              opciones: ["Preocuparte por cómo se siente cada persona", "Analizar todos los puntos antes de hablar", 
+                        "Buscar soluciones fuera de lo común", "Mantener la calma y ayudar a moderar"] },
+            { texto: "Tu forma preferida de pasar una tarde libre es...",
+              opciones: ["Charlar profundamente con alguien cercano", "Leer o investigar sobre algo que te intriga", 
+                        "Hacer algo manual o artístico", "Descansar en un lugar tranquilo y silencioso"] },
+            { texto: "Cuando alguien llora frente a ti, normalmente...",
+              opciones: ["Lloras con ellos o te emocionas igual", "Intentas entender la raíz de su dolor", 
+                        "Buscas algo hermoso que decir o hacer", "Le das espacio y tiempo para desahogarse"] },
+            { texto: "En una crisis, tu fortaleza principal es...",
+              opciones: ["Tu capacidad de conectar emocionalmente", "Tu pensamiento lógico y analítico", 
+                        "Tu imaginación para encontrar salidas", "Tu serenidad bajo presión"] },
+            { texto: "Lo que más disfrutas de las relaciones es...",
+              opciones: ["La intimidad emocional y compartir sentimientos", "Las conversaciones profundas y significativas", 
+                        "Crear experiencias únicas juntos", "La paz y armonía que generan"] },
+            { texto: "Cuando te sientes abrumado, lo que más te ayuda es...",
+              opciones: ["Hablar con alguien que te entiende", "Tener tiempo a solas para pensar", 
+                        "Expresarte de forma artística", "Respirar y dejar pasar las emociones"] },
+            { texto: "Tu contribución natural en equipo es...",
+              opciones: ["Mantener la cohesión y el buen clima", "Analizar problemas desde varios ángulos", 
+                        "Proponer ideas innovadoras", "Mantener la calma cuando hay tensión"] },
+            { texto: "Lo que más valoras en un amigo es...",
+              opciones: ["Su capacidad de empatizar contigo", "Su profundidad de pensamiento", 
+                        "Su creatividad y originalidad", "Su paz interior y estabilidad"] },
+            { texto: "Ante una decisión difícil, tiendes a...",
+              opciones: ["Seguir tu corazón y emociones", "Hacer una lista de pros y contras", 
+                        "Buscar una tercera opción creativa", "Esperar hasta sentir claridad interior"] },
+            { texto: "Tu estilo de comunicación es...",
+              opciones: ["Emocional y cercano", "Precisa y bien pensada", 
+                        "Original y expresiva", "Calma y mesurada"] },
+            { texto: "Lo que más te define en momentos importantes es...",
+              opciones: ["Tu sensibilidad hacia los demás", "Tu capacidad de reflexión", 
+                        "Tu visión única de las cosas", "Tu tranquilidad imperturbable"] },
+            { texto: "Cuando piensas en lo que aportas al mundo, crees que es...",
+              opciones: ["Amor y comprensión a quienes te rodean", "Ideas y perspectivas que hacen pensar", 
+                        "Belleza y creatividad en lo cotidiano", "Paz y equilibrio en tu entorno"] }
+        ];
+
+        // RESULTADOS CON IMÁGENES ASEGURADAS
+        const resultados = {
+            abrazadora: {
+                nombre: "Sol Abrazadora", emoji: "🤗",
+                descripcion: "Tu luz es cálida como un abrazo que llega al alma. No solo escuchas - sientes con. Tu empatía es tan profunda que a veces cargas con dolores ajenos, pero también multiplicas alegrías. Eres refugio, consuelo, hogar.",
+                libro: { titulo: "El amor en los tiempos del cólera", autor: "Gabriel García Márquez", 
+                        descripcion: "Porque entiendes que amar es comprender todas las formas del corazón humano." },
+                cancion: { titulo: "Tu sonrisa", artista: "Silvio Rodríguez", 
+                          descripcion: "Porque tu felicidad genuina es ver feliz al otro.",
+                          spotify: "https://open.spotify.com/track/3ISs5KQcHVI6dP2xM5lQY7",
+                          youtube: "https://www.youtube.com/watch?v=O9XaB5lC_GM" },
+                cafe: { nombre: "Latte con miel y canela", 
+                       descripcion: "Dulce, reconfortante, que calienta el corazón como tus abrazos." },
+                imagen: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            reflexiva: {
+                nombre: "Sol Reflexiva", emoji: "💭",
+                descripcion: "Tu luz ilumina las profundidades. Donde otros ven superficie, tú ves capas, significados, conexiones. Tu mente es un jardín donde las ideas crecen lentamente y florecen en insights que sorprenden a todos.",
+                libro: { titulo: "El jardín de las dudas", autor: "Florencia Bonelli", 
+                        descripcion: "Porque cultivas preguntas hasta que dan frutos de sabiduría." },
+                cancion: { titulo: "Persiana americana", artista: "Soda Stereo", 
+                          descripcion: "Porque miras detrás de lo evidente, encontrando verdades escondidas.",
+                          spotify: "https://open.spotify.com/track/3hZjs4b2WiD5hZtTi8L6pO",
+                          youtube: "https://www.youtube.com/watch?v=hZ0lTlJqy_k" },
+                cafe: { nombre: "Pour Over de grano single origin", 
+                       descripcion: "Puro, complejo, que se saborea lentamente como tus pensamientos." },
+                imagen: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            creativa: {
+                nombre: "Sol Creativa", emoji: "🎨",
+                descripcion: "Tu luz pinta el mundo con colores que solo tú ves. Transformas el dolor en arte, la alegría en celebración, lo cotidiano en especial. Eres alquimista emocional, creando belleza desde el caos.",
+                libro: { titulo: "La casa de los espíritus", autor: "Isabel Allende", 
+                        descripcion: "Porque ves lo extraordinario en lo ordinario, pintando la realidad con magia." },
+                cancion: { titulo: "Color esperanza", artista: "Diego Torres", 
+                          descripcion: "Porque donde otros ven gris, tú pintas arcoíris con tu creatividad.",
+                          spotify: "https://open.spotify.com/track/3T1fpj6d7a3U2Y2J6Tk8tK",
+                          youtube: "https://www.youtube.com/watch?v=WtWvXGWQ-DQ" },
+                cafe: { nombre: "Cortado artístico con arte latte", 
+                       descripcion: "Visual, creativo, con ese toque especial que solo tú das." },
+                imagen: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            },
+            serena: {
+                nombre: "Sol Serena", emoji: "🌙",
+                descripcion: "Tu luz es suave como la luna. No grita, susurra. No impone, acompaña. Tu presencia calma tormentas interiores sin decir una palabra. Eres oasis de paz en un mundo ruidoso.",
+                libro: { titulo: "Como agua para chocolate", autor: "Laura Esquivel", 
+                        descripcion: "Porque encuentras la magia en lo cotidiano, transmitiendo emociones con calma." },
+                cancion: { titulo: "Burbujas de amor", artista: "Juan Luis Guerra", 
+                          descripcion: "Porque flotas sobre el caos con gracia, transformando tensiones en paz.",
+                          spotify: "https://open.spotify.com/track/3c4m2cC1GYLPQOQxzEZ6J2",
+                          youtube: "https://www.youtube.com/watch?v=YtHHDp_i_LE" },
+                cafe: { nombre: "Té chai latte", 
+                       descripcion: "Suave, especiado, que relaja como tu presencia serena." },
+                imagen: "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+            }
+        };
+
+        // VARIABLES
+        let preguntaActual = 0;
+        let respuestas = { abrazadora: 0, reflexiva: 0, creativa: 0, serena: 0 };
+        let opcionSeleccionada = null;
+
+        // FUNCIONES
+        function comenzarTest() {
+            document.getElementById('inicio').classList.remove('activa');
+            document.getElementById('pantalla-preguntas').classList.add('activa');
+            mostrarPregunta();
+        }
+
+        function mostrarPregunta() {
+            const pregunta = preguntas[preguntaActual];
+            document.getElementById('texto-pregunta').textContent = pregunta.texto;
+            document.getElementById('numero-pregunta').textContent = preguntaActual + 1;
+            
+            document.getElementById('barra-progreso').style.width = ((preguntaActual) / preguntas.length) * 100 + '%';
+            
+            const opcionesContainer = document.getElementById('opciones-container');
+            opcionesContainer.innerHTML = '';
+            
+            pregunta.opciones.forEach((opcion, index) => {
+                const boton = document.createElement('button');
+                boton.className = 'opcion-btn';
+                boton.textContent = opcion;
+                boton.onclick = () => {
+                    document.querySelectorAll('.opcion-btn').forEach(btn => btn.classList.remove('seleccionada'));
+                    boton.classList.add('seleccionada');
+                    opcionSeleccionada = index;
+                    document.getElementById('btn-siguiente').style.display = 'block';
+                };
+                opcionesContainer.appendChild(boton);
+            });
+            
+            document.getElementById('btn-siguiente').style.display = 'none';
+        }
+
+        function siguientePregunta() {
+            if (opcionSeleccionada === null) return alert('Selecciona una opción');
+            
+            [respuestas.abrazadora, respuestas.reflexiva, respuestas.creativa, respuestas.serena][opcionSeleccionada]++;
+            preguntaActual++;
+            
+            if (preguntaActual < preguntas.length) {
+                mostrarPregunta();
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function mostrarResultado() {
+            let max = 0, resultadoKey = 'abrazadora';
+            for (const [key, puntos] of Object.entries(respuestas)) {
+                if (puntos > max) { max = puntos; resultadoKey = key; }
+            }
+            
+            const resultado = resultados[resultadoKey];
+            
+            document.getElementById('pantalla-preguntas').classList.remove('activa');
+            document.getElementById('pantalla-resultado').classList.add('activa');
+            
+            document.getElementById('resultado-contenido').innerHTML = `
+                <div class="resultado-contenido">
+                    <div class="resultado-emoji">${resultado.emoji}</div>
+                    <h2 class="resultado-titulo">¡Eres ${resultado.nombre}!</h2>
+                    
+                    <img src="${resultado.imagen}" alt="${resultado.nombre}" class="resultado-imagen">
+                    
+                    <p style="font-size: 1.05rem; color: #555; margin: 25px 0; line-height: 1.7;">
+                        ${resultado.descripcion}
+                    </p>
+                    
+                    <div class="elementos-resultado">
+                        <div class="elemento">
+                            <span style="font-size: 2rem; margin-bottom: 15px; display: block;">📚</span>
+                            <div style="font-weight: 600; margin-bottom: 10px;">Tu libro</div>
+                            <div style="font-size: 0.95rem; color: #666;">
+                                <strong>${resultado.libro.titulo}</strong><br>
+                                <em>${resultado.libro.autor}</em><br>
+                                <small>${resultado.libro.descripcion}</small>
+                            </div>
+                        </div>
+                        
+                        <div class="elemento">
+                            <span style="font-size: 2rem; margin-bottom: 15px; display: block;">🎵</span>
+                            <div style="font-weight: 600; margin-bottom: 10px;">Tu canción</div>
+                            <div style="font-size: 0.95rem; color: #666;">
+                                <strong>"${resultado.cancion.titulo}"</strong><br>
+                                <em>${resultado.cancion.artista}</em><br>
+                                <small>${resultado.cancion.descripcion}</small>
+                                <div class="botones-cancion">
+                                    <a href="${resultado.cancion.spotify}" target="_blank" class="btn-spotify">
+                                        <i class="fab fa-spotify"></i> Spotify
+                                    </a>
+                                    <a href="${resultado.cancion.youtube}" target="_blank" class="btn-youtube">
+                                        <i class="fab fa-youtube"></i> YouTube
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="elemento">
+                            <span style="font-size: 2rem; margin-bottom: 15px; display: block;">☕</span>
+                            <div style="font-weight: 600; margin-bottom: 10px;">Tu café</div>
+                            <div style="font-size: 0.95rem; color: #666;">
+                                <strong>${resultado.cafe.nombre}</strong><br>
+                                <small>${resultado.cafe.descripcion}</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 30px 0;">
+                        <button class="btn-principal" onclick="location.reload()" style="max-width: 200px; margin: 0 auto;">
+                            <i class="fas fa-redo"></i> Hacer Test Nuevamente
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
